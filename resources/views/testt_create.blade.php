@@ -99,8 +99,11 @@ ClassicEditor.create(document.querySelector('#editor'), {
         supportAllValues: true
     },
 
-    ckfinder: {
-        uploadUrl: '/upload-image?_token={{ csrf_token() }}'
+    simpleUpload: {
+        uploadUrl: '/upload-image',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
     }
 
 })
