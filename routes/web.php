@@ -14,3 +14,9 @@ Route::post('/testt-store', [TesttPostController::class, 'store']);
 Route::get('/testt-index', [TesttPostController::class, 'index']);
 
 Route::post('/upload-image', [UploadController::class, 'upload']);
+
+Route::post('/preview', function (\Illuminate\Http\Request $request) {
+    return view('testt_preview', [
+        'content' => $request->content
+    ]);
+});

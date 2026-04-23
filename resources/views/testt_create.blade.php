@@ -5,13 +5,26 @@
     <title>CKEditor 5</title>
 
     <style>
+        /* 🔥 FONT + SIZE MẶC ĐỊNH */
         .ck-editor__editable {
             min-height: 300px;
+            font-family: "Times New Roman", serif;
+            font-size: 18px;
+            line-height: 1.8;
         }
 
         .ck-content img {
             max-width: 100%;
             height: auto;
+        }
+
+        /* 🔥 style trích dẫn */
+        .ck-content blockquote {
+            border-left: 4px solid #ccc;
+            padding-left: 15px;
+            color: #555;
+            font-style: italic;
+            margin: 15px 0;
         }
     </style>
 </head>
@@ -44,9 +57,15 @@
 let editor;
 
 ClassicEditor.create(document.querySelector('#editor'), {
+
     toolbar: [
+        'fontFamily',
+        'fontSize',
+        '|',
         'bold',
         'italic',
+        '|',
+        'blockQuote',
         '|',
         'link',
         '|',
@@ -59,9 +78,31 @@ ClassicEditor.create(document.querySelector('#editor'), {
         'redo'
     ],
 
+    // 🔥 FONT CHO CHỌN
+    fontFamily: {
+        options: [
+            'default',
+            'Arial, sans-serif',
+            '"Times New Roman", serif',
+            'Courier New, monospace',
+            'Tahoma, sans-serif',
+            'Verdana, sans-serif'
+        ],
+        supportAllValues: true
+    },
+
+    // 🔥 SIZE CHO CHỌN
+    fontSize: {
+        options: [
+            12, 14, 16, 18, 20, 24, 28
+        ],
+        supportAllValues: true
+    },
+
     ckfinder: {
         uploadUrl: '/upload-image?_token={{ csrf_token() }}'
     }
+
 })
 .then(e => {
     editor = e;
@@ -70,7 +111,7 @@ ClassicEditor.create(document.querySelector('#editor'), {
     console.error(error);
 });
 
-// 🔥 QUAN TRỌNG: gán dữ liệu vào form
+// 🔥 LƯU DATA
 function submitForm() {
     document.getElementById('testt_content').value = editor.getData();
 }
